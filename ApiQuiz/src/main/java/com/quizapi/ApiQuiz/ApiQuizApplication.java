@@ -8,6 +8,7 @@ public class ApiQuizApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiQuizApplication.class, args);
+		System.out.println("Hello world");
 	}
 
 }
