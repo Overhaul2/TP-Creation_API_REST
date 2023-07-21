@@ -3,7 +3,6 @@ package com.quizapi.ApiQuiz.modele;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -19,10 +18,12 @@ public class Quiz {
     private long id;
 @Column(length = 50)
     private String nom;
-@Column(length = 100)
-    private String domaine;
+@ManyToOne
+    private Domaine domaine;
 @OneToMany (mappedBy = "quiz")
-    private List<question> questions;
+    private List<Question> questions;
+@OneToMany (mappedBy = "quiz")
+private List<Score> scores;
 
     public Quiz() {
 
@@ -40,19 +41,20 @@ public class Quiz {
         this.nom = nom;
     }
 
-    public String getDomaine() {
+
+    public Domaine getDomaine() {
         return domaine;
     }
 
-    public void setDomaine(String domaine) {
+    public void setDomaine(Domaine domaine) {
         this.domaine = domaine;
     }
 
-    public List<question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
