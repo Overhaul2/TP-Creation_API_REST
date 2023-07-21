@@ -24,41 +24,7 @@ public class Quiz {
     private List<Question> questions;
 @OneToMany (mappedBy = "quiz")
 private List<Score> scores;
+@ManyToOne
+private User user;
 
-    public Quiz() {
-
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-
-    public Domaine getDomaine() {
-        return domaine;
-    }
-
-    public void setDomaine(Domaine domaine) {
-        this.domaine = domaine;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }

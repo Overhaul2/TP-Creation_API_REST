@@ -18,6 +18,9 @@ public class Choix {
     private Boolean etat;
     private String contenu;
 
+    @ManyToOne
+    private Question question;
+
     @Override
     public String toString() {
         return "Choix{" +
@@ -27,30 +30,4 @@ public class Choix {
                 '}';
     }
 
-    public Boolean getEtat() {
-        return etat;
-    }
-
-    public void setEtat(Boolean etat) {
-        this.etat = etat;
-    }
-
-    public String getContenu() {
-        return contenu;
-    }
-
-    public void setContenu(String contenu) {
-        this.contenu = contenu;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    @ManyToOne
-    private Question question;
 }

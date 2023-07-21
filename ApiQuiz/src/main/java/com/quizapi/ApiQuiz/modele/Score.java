@@ -27,28 +27,4 @@ public class Score {
                 ", quiz=" + quiz +
                 '}';
     }
-
-    public int getId_user() {
-        return id_user;
     }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
-    }
-
-    public int getPoint() {
-        return point;
-    }
-
-    public void setPoint(int point) {
-        this.point = point;
-    }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
-    }
-}
