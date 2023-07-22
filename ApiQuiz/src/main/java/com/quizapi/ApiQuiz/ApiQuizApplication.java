@@ -1,9 +1,13 @@
 package com.quizapi.ApiQuiz;
 
+import com.quizapi.ApiQuiz.modele.User;
+import com.quizapi.ApiQuiz.service.UserService;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication (exclude = SecurityAutoConfiguration.class)
 public class ApiQuizApplication {
 
 	public static void main(String[] args) {
