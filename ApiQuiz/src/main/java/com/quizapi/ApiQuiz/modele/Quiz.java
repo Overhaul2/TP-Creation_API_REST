@@ -26,5 +26,6 @@ public class Quiz {
 private List<Score> scores;
 @ManyToOne
 private User user;
-
+@ManyToMany (mappedBy = "quizList")
+    private List<User> users;
 }

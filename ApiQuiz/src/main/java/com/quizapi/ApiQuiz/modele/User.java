@@ -23,6 +23,12 @@ public class User {
     private  String password;
     @OneToMany (mappedBy = "user")
     private List<Quiz> quizzes;
+    @ManyToMany
+    @JoinTable(
+            name = "participation",
+            inverseJoinColumns = @JoinColumn (name = "quiz_id")
+    )
+    private List<Quiz> quizList;
 
     @Override
     public String toString() {
