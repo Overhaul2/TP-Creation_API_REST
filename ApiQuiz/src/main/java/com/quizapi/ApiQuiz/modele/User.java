@@ -1,7 +1,8 @@
 package com.quizapi.ApiQuiz.modele;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,12 +17,28 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
     private long id;
+
+    @Column(nullable = false )
+    @NotEmpty
     private  String nom;
+
+    @Column(nullable = false)
+    @NotEmpty
     private  String prenom;
+
+    @Column(nullable = false,unique = true)
     private  String email;
+
+    @Column(nullable = false,unique = true)
+    @NotEmpty
     private  String pseudo;
+
+    @Column(nullable = false)
+    @NotEmpty
     private  String password;
+
     @OneToMany (mappedBy = "user")
     private List<Quiz> quizzes;
     @ManyToMany
