@@ -25,10 +25,12 @@ public class QuizController {
 
     @PutMapping("/update")
     public Quiz update(@RequestBody Long idQz, Quiz quiz){
+
         return quizService.modifier(idQz, quiz);
     }
 
     public String delete(@PathVariable Long idQz){
+
         return quizService.supprimer(idQz);
     }
 }

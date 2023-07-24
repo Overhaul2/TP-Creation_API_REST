@@ -33,8 +33,8 @@ public class DomaineServiceImp implements DomaineService{
     }
 
     @Override
-    public String supprimer(int idDomaine) {
-        domaineRepository.deleteById(Long.valueOf(idDomaine));
+    public String supprimer(Long idDomaine) {
+        domaineRepository.deleteById(idDomaine);
         return "Domaine supprimer";
     }
 }

@@ -15,6 +15,6 @@ import java.util.List;
 public class Domaine {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int idDomaine;
+    private Long idDomaine;
     private String nom;
 }

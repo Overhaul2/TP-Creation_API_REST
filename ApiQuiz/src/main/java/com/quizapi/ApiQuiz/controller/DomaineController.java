@@ -30,8 +30,8 @@ public class DomaineController {
         return domaineService.modifier(idDomaine,domaine);
     }
 
-    @DeleteMapping("/supprimer")
-    public String delete(@PathVariable int idDomaine){
+    @DeleteMapping("/supprimer/{idDomaine}")
+    public String delete(@PathVariable Long idDomaine){
         return domaineService.supprimer(idDomaine);
     }
 

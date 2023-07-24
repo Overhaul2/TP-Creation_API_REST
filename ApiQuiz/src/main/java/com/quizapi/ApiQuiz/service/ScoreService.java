@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ScoreService {
 
-    Score creer(Long id, Long idQz, int point);
+    Score creer(Score score);
 
     List<Score> lire();
 

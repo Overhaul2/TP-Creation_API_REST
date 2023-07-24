@@ -13,7 +13,7 @@ public class ScoreServiceIp implements ScoreService{
 
     private final ScoreRepository scoreRepository;
 
-    @Override
+ /*   @Override
     public Score creer(Long id, Long idQz, int point) {
         Score score = new Score();
         score.setId(id);
@@ -22,6 +22,12 @@ public class ScoreServiceIp implements ScoreService{
         // Vous pouvez également rechercher le quiz par son ID et le définir ici, si nécessaire.
         // score.setQuiz(quizRepository.findById(idQz).orElse(null));
 
+        return scoreRepository.save(score);
+    }
+  */
+
+    @Override
+    public Score creer(Score score) {
         return scoreRepository.save(score);
     }
 

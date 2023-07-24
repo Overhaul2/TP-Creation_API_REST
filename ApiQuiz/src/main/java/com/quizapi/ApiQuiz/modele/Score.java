@@ -18,17 +18,8 @@ public class Score {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private int point;
+    private Long id_user;
     @ManyToOne
     private Quiz quiz;
-    @ManyToMany
-    private User user;
 
-    @Override
-    public String toString() {
-        return "Score{" +
-                "User=" + user +
-                ", point=" + point +
-                ", quiz=" + quiz +
-                '}';
-    }
     }

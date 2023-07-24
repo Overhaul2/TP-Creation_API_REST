@@ -12,5 +12,5 @@ public interface DomaineService {
 
     Domaine modifier(int idDomaine, Domaine domaine);
 
-    String supprimer (int idDomaine);
+    String supprimer(Long idDomaine);
 }
