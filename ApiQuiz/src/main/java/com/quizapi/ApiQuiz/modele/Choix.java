@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Choix {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private Boolean etat;
     private String contenu;
 

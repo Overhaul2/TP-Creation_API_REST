@@ -15,8 +15,6 @@ import java.util.List;
 public class Domaine {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idDomaine;
     private String nom;
-    @OneToMany (mappedBy = "domaine")
-    private List<Quiz> quizzes;
 }
