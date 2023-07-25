@@ -12,4 +12,6 @@ public interface QuizService {
     Quiz modifier(Long idQ, Quiz quiz);
 
     String supprimer(Long idQz);
+
+    List<Quiz> rechercherQuizByNom(String nom);
 }

@@ -41,4 +41,9 @@ public class QuizServiceImp implements QuizService{
         quizRepository.deleteById(idQz);
         return null;
     }
+
+    @Override
+    public List<Quiz> rechercherQuizByNom(String nom) {
+        return null;
+    }
 }

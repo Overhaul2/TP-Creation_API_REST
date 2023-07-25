@@ -1,7 +1,9 @@
 package com.quizapi.ApiQuiz.service;
 
 import com.quizapi.ApiQuiz.modele.Question;
+import com.quizapi.ApiQuiz.modele.Quiz;
 import com.quizapi.ApiQuiz.repository.QuestionRepository;
+import com.quizapi.ApiQuiz.repository.QuizRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import java.util.List;
 public class QuestionServiceImp implements QuestionService{
 
     private final QuestionRepository questionRepository;
+    private QuizRepository quizRepository;
+
     @Override
     public Question creer(Question question) {
         return questionRepository.save(question);
@@ -36,4 +40,10 @@ public class QuestionServiceImp implements QuestionService{
         questionRepository.deleteById(idQ);
         return "Question supprimer";
     }
+
+    @Override
+    public List<Quiz> rechercherQuizByNom(String nom) {
+        return quizRepository.findByNomContainingIgnoreCase(nom);
+    }
+
 }

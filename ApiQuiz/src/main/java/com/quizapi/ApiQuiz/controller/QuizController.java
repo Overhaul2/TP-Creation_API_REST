@@ -3,6 +3,7 @@ package com.quizapi.ApiQuiz.controller;
 import com.quizapi.ApiQuiz.modele.Quiz;
 import com.quizapi.ApiQuiz.service.QuizService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +33,10 @@ public class QuizController {
     public String delete(@PathVariable Long idQz){
 
         return quizService.supprimer(idQz);
+    }
+    @GetMapping("/rechercher")
+    public ResponseEntity<List<Quiz>> rechercherQuizByNom(@RequestParam String nom) {
+        List<Quiz> quiz = quizService.rechercherQuizByNom(nom);
+        return ResponseEntity.ok(quiz);
     }
 }
