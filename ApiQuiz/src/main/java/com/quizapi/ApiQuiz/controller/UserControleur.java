@@ -3,13 +3,10 @@ package com.quizapi.ApiQuiz.controller;
 import com.quizapi.ApiQuiz.ApiResponse;
 import com.quizapi.ApiQuiz.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @AllArgsConstructor
 public class UserControleur {
   private final UserService userService;
@@ -19,4 +16,10 @@ public class UserControleur {
       return userService.login(email, password);
   }
 
+
+    @GetMapping("/status")
+    public String statusCheck() {
+        return "Working...";
+    }
 }
+
