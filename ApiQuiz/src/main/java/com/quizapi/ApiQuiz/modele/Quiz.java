@@ -35,4 +35,8 @@ private User user;
 
 @ManyToMany (mappedBy = "quizList")
     private List<User> users;
+
+    public Long getId() {
+        return idQz;
+    }
 }

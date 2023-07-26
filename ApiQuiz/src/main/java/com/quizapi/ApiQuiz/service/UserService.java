@@ -1,22 +1,25 @@
 package com.quizapi.ApiQuiz.service;
+import com.quizapi.ApiQuiz.ApiResponse;
 import com.quizapi.ApiQuiz.modele.User;
 import com.quizapi.ApiQuiz.Config.JwtService;
+import com.quizapi.ApiQuiz.modele.User;
 import com.quizapi.ApiQuiz.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 
+import java.util.List;
 import java.util.Optional;
 
+import java.util.List;
 @Service
 public class UserService {
     private final UserRepository UserRepository;
-    //le JwtService pour la connexion
     private final JwtService jwtService;
     @NonNull HttpServletRequest request;
 
@@ -52,26 +55,13 @@ public class UserService {
     public Optional<User> finduser(){
         return UserRepository.findByEmail(UserApp.getEmail());
     }
-    @Transactional
     public String deletesuser(){
-        //
-        if (UserRepository.deleteByEmail(UserApp.getEmail())){
-            return "Compte supprime avec succes";
-        }
-        else {
-            return "Desole nous n'avons pas pu supprimer votre compte";
-        }
-
+        UserRepository.deleteUserByEmail(UserApp.getEmail());
+        return "Compte supprime avec succes";
     }
-    public User modify(Long idUser, User user) {
-        return UserRepository.findById(idUser)
-                .map(p->{
-                    p.setNom(user.getNom());
-                    p.setPrenom(user.getPrenom());
-                    p.setPrenom(user.getPseudo());
-                    p.setEmail(user.getEmail());
-                    return UserRepository.save(p);
-                }).orElseThrow(() ->new RuntimeException("Utilisateur non trouvé!"));
+    public User modify(User user1){
+        Optional<User> user2  = UserRepository.findByEmail(UserApp.getEmail());
+        return user1;
     }
 
 }

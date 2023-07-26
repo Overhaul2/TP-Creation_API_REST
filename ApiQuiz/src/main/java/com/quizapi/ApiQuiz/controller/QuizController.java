@@ -37,7 +37,7 @@ public class QuizController {
         return quizService.supprimer(idQz);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/rechercher")
     @Operation(summary = "Recherche de quiz ", description = "cette methode permet de Rechercher des quiz selon le domaine de connaissance")
     public ResponseEntity<List<String>> searching(@RequestParam(value = "domain") String domain) {
         List<Quiz> quizList = quizService.search(domain);
