@@ -15,12 +15,13 @@ public class ChoixController {
     private Choixservice choixservice;
 
     @PostMapping("/create")
-    @Operation(summary = "Faire un Choix ")
+    @Operation(summary = "Créer le choix de quiz ", description = "cette methode permet de créer le choix de quiz")
     public Choix create(@RequestBody Choix choix){
         return choixservice.creer(choix);
     }
 
     @GetMapping("/liste")
+    @Operation(summary = "Afficher la liste des choix ", description = "cette methode permet d'afficher une liste de choix'")
     public List<Choix> read(){
         return choixservice.lire();
     }

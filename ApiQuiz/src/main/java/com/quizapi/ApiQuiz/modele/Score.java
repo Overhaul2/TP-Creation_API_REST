@@ -10,9 +10,9 @@ import lombok.Setter;
 @Entity
 @Table (name = "scores")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class Score {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
