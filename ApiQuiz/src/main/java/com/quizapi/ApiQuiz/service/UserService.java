@@ -56,7 +56,7 @@ public class UserService {
         return UserRepository.findByEmail(UserApp.getEmail());
     }
     public String deletesuser(){
-        UserRepository.deleteUserByEmail(UserApp.getEmail());
+        UserRepository.deleteByEmail(UserApp.getEmail());
         return "Compte supprime avec succes";
     }
     public User modify(User user1){

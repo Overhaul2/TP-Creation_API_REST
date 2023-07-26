@@ -47,6 +47,9 @@ public class QuizController {
             quizNames.add(quiz.getNom());
         }
 
+
         return ResponseEntity.ok(quizNames);
+//voyons si tout a change
+
     }
 }

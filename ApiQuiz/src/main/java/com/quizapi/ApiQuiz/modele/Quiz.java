@@ -37,6 +37,6 @@ private User user;
     private List<User> users;
 
     public Long getId() {
-        return idQz;
+        return id;
     }
 }
