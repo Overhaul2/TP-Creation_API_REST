@@ -1,4 +1,4 @@
-package com.quizapi.ApiQuiz.service;
+/*package com.quizapi.ApiQuiz.service;
 
 import com.quizapi.ApiQuiz.ApiResponse;
 import com.quizapi.ApiQuiz.modele.User;
@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -46,7 +47,7 @@ public class UserServiceImp implements UserService{
     //kuhsiygyfsg
     @Override
     public ApiResponse login(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
         if(user == null) {
             throw new RuntimeException("Nom d'utilisateur ou email incorrecte.");
         }
@@ -56,4 +57,4 @@ public class UserServiceImp implements UserService{
         return new ApiResponse(200, "Utilisateur connecté avec succès!", user) ;
 
     }
-}
+}*/
