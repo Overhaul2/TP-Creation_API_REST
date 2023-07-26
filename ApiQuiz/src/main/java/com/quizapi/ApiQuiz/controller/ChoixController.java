@@ -2,6 +2,7 @@ package com.quizapi.ApiQuiz.controller;
 
 import com.quizapi.ApiQuiz.modele.Choix;
 import com.quizapi.ApiQuiz.service.Choixservice;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ public class ChoixController {
     private Choixservice choixservice;
 
     @PostMapping("/create")
+    @Operation(summary = "Faire un Choix ")
     public Choix create(@RequestBody Choix choix){
         return choixservice.creer(choix);
     }

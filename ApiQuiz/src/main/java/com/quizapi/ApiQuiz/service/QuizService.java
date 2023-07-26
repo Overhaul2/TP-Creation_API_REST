@@ -14,4 +14,6 @@ public interface QuizService {
     String supprimer(Long idQz);
 
     List<Quiz> rechercherQuizByNom(String nom);
+    public List<Quiz> search(String domain);
+
 }

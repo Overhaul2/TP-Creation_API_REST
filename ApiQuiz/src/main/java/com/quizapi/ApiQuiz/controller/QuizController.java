@@ -12,31 +12,31 @@ import java.util.List;
 @RequestMapping("quiz")
 @AllArgsConstructor
 public class QuizController {
-    private QuizService quizService;
+    private final QuizService quizService;
 
     @PostMapping("/create")
-    public Quiz create(@RequestBody Quiz quiz){
+    public Quiz create(@RequestBody Quiz quiz) {
         return quizService.creer(quiz);
     }
 
     @GetMapping("/liste")
-    public List<Quiz> read(){
+    public List<Quiz> read() {
         return quizService.lire();
     }
 
-    @PutMapping("/update")
-    public Quiz update(@RequestBody Long idQz, Quiz quiz){
-
+    @PutMapping("/update/{idQz}")
+    public Quiz update(@PathVariable Long idQz, @RequestBody Quiz quiz) {
         return quizService.modifier(idQz, quiz);
     }
 
-    public String delete(@PathVariable Long idQz){
-
+    @DeleteMapping("/delete/{idQz}")
+    public String delete(@PathVariable Long idQz) {
         return quizService.supprimer(idQz);
     }
+
     @GetMapping("/rechercher")
-    public ResponseEntity<List<Quiz>> rechercherQuizByNom(@RequestParam String nom) {
-        List<Quiz> quiz = quizService.rechercherQuizByNom(nom);
+    public ResponseEntity<List<Quiz>> searching(@RequestParam(value = "domain") String domain) {
+        List<Quiz> quiz = quizService.search(domain);
         return ResponseEntity.ok(quiz);
     }
 }

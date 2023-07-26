@@ -46,4 +46,7 @@ public class QuizServiceImp implements QuizService{
     public List<Quiz> rechercherQuizByNom(String nom) {
         return null;
     }
+public List<Quiz> search(String domain){
+       return quizRepository.findByDomaine_Nom(domain);
+}
 }
