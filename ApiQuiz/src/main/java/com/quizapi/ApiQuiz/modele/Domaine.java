@@ -1,21 +1,19 @@
 package com.quizapi.ApiQuiz.modele;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
 @Table(name = "domaine")
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 public class Domaine {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long idDomaine;
+    private Long id;
     @NonNull
     private String nom;
 }

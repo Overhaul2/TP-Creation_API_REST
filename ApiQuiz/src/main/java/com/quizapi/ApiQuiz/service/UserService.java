@@ -1,11 +1,8 @@
 package com.quizapi.ApiQuiz.service;
-import com.quizapi.ApiQuiz.ApiResponse;
 import com.quizapi.ApiQuiz.modele.User;
 import com.quizapi.ApiQuiz.Config.JwtService;
-import com.quizapi.ApiQuiz.modele.User;
 import com.quizapi.ApiQuiz.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotEmpty;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +10,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindException;
 
-import java.util.List;
 import java.util.Optional;
 
-import java.util.List;
 @Service
 public class UserService {
     private final UserRepository UserRepository;

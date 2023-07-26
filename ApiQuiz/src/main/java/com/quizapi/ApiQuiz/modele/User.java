@@ -1,11 +1,11 @@
 package com.quizapi.ApiQuiz.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +21,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "user")
+@JsonPropertyOrder(value = {"prenom","nom","pseudo","email"},alphabetic = true)
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,13 +44,14 @@ public class User implements UserDetails {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Le Pseudo ne peut pas etre Vide")
-    @Size(max = 10)
     @Getter
     private String pseudo;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Quiz> quizzes;
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "participation",
             inverseJoinColumns = @JoinColumn(name = "quiz_id")
@@ -57,6 +59,7 @@ public class User implements UserDetails {
     private List<Quiz> quizList;
 
     @Override
+    @JsonIgnore
     public String toString() {
         return "User{" +
                 "nom='" + nom + '\'' +
@@ -67,36 +70,43 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return null;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return email;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

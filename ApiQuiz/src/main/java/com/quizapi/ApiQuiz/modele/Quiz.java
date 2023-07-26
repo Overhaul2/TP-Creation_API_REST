@@ -17,17 +17,22 @@ import java.util.List;
 public class Quiz {
 @Id
 @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long idQz;
+    private Long id;
 @Column(length = 50)
     private String nom;
+
 @ManyToOne
     private Domaine domaine;
+
 @OneToMany (mappedBy = "quiz")
     private List<Question> questions;
+
 @OneToMany (mappedBy = "quiz")
 private List<Score> scores;
+
 @ManyToOne
 private User user;
+
 @ManyToMany (mappedBy = "quizList")
     private List<User> users;
 }
