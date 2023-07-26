@@ -31,7 +31,7 @@ public class ChoixController {
         return choixservice.modifier(id, choix);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id){
         return choixservice.supprimer(id);
     }

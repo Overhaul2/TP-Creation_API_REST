@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository UserRepository;
+    //le JwtService pour la connexion
     private final JwtService jwtService;
     @NonNull HttpServletRequest request;
 
@@ -50,13 +52,26 @@ public class UserService {
     public Optional<User> finduser(){
         return UserRepository.findByEmail(UserApp.getEmail());
     }
+    @Transactional
     public String deletesuser(){
-        UserRepository.deleteUserByEmail(UserApp.getEmail());
-        return "Compte supprime avec succes";
+        //
+        if (UserRepository.deleteByEmail(UserApp.getEmail())){
+            return "Compte supprime avec succes";
+        }
+        else {
+            return "Desole nous n'avons pas pu supprimer votre compte";
+        }
+
     }
-    public User modify(User user1){
-        Optional<User> user2  = UserRepository.findByEmail(UserApp.getEmail());
-        return user1;
+    public User modify(Long idUser, User user) {
+        return UserRepository.findById(idUser)
+                .map(p->{
+                    p.setNom(user.getNom());
+                    p.setPrenom(user.getPrenom());
+                    p.setPrenom(user.getPseudo());
+                    p.setEmail(user.getEmail());
+                    return UserRepository.save(p);
+                }).orElseThrow(() ->new RuntimeException("Utilisateur non trouvé!"));
     }
 
 }
