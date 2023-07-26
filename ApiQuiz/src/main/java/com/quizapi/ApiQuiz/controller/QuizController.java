@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("quiz")
+@RequestMapping("/quiz")
 @AllArgsConstructor
 public class QuizController {
     private final QuizService quizService;
@@ -38,15 +40,19 @@ public class QuizController {
     }
 
     @GetMapping("/rechercher")
-    @Operation(summary = "Recherche de quiz ", description = "cette methode permet de Rechercher des quiz selon le domaine de connaissance")
-    public ResponseEntity<List<String>> searching(@RequestParam(value = "domain") String domain) {
+    @Operation(summary = "Recherche de quiz", description = "Cette méthode permet de rechercher des quiz selon le domaine de connaissance")
+    public ResponseEntity<List<Map<String, Object>>> searching(@RequestParam(value = "domain") String domain) {
         List<Quiz> quizList = quizService.search(domain);
-        List<String> quizNames = new ArrayList<>();
+        List<Map<String, Object>> quizInfoList = new ArrayList<>();
 
         for (Quiz quiz : quizList) {
-            quizNames.add(quiz.getNom());
+            Map<String, Object> quizInfo = new HashMap<>();
+            quizInfo.put("id", quiz.getId());
+            quizInfo.put("nom", quiz.getNom());
+            quizInfoList.add(quizInfo);
         }
 
-        return ResponseEntity.ok(quizNames);
+        return ResponseEntity.ok(quizInfoList);
     }
+
 }
