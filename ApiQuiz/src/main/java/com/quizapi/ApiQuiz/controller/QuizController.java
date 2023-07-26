@@ -51,7 +51,7 @@ public class QuizController {
             quizInfo.put("nom", quiz.getNom());
             quizInfoList.add(quizInfo);
         }
-
+//voyons si tout a change
         return ResponseEntity.ok(quizInfoList);
     }
 
