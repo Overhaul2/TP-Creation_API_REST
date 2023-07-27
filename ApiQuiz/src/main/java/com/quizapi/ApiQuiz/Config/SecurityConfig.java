@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/api-docs/**").permitAll()
                         .requestMatchers("/quiz/rechercher").permitAll()
                         .requestMatchers("/rechercher/**").permitAll()
+                        .requestMatchers("/user/History/**").permitAll()
                         .requestMatchers("/api/").permitAll()
                         .anyRequest().authenticated()
                 )
