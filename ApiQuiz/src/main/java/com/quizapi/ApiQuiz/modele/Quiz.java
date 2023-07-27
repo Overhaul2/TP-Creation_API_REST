@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "quiz")
@@ -39,4 +40,6 @@ private User user;
     public Long getId() {
         return id;
     }
+
+
 }

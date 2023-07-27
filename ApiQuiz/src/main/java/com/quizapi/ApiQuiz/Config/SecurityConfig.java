@@ -30,8 +30,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/registration").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/api-docs/**").permitAll()
-                        .requestMatchers("/quiz/rechercher").permitAll()
-                        .requestMatchers("/rechercher/**").permitAll()
                         .requestMatchers("/api/").permitAll()
                         .anyRequest().authenticated()
                 )

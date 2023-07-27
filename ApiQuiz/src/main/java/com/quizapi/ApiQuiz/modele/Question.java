@@ -20,6 +20,7 @@ public class Question {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private Long point;
     @ManyToOne
     private Quiz quiz;
     @OneToMany (mappedBy = "question")

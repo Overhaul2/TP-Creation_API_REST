@@ -1,6 +1,9 @@
 package com.quizapi.ApiQuiz.controller;
 
+import com.quizapi.ApiQuiz.modele.MainQuiz;
 import com.quizapi.ApiQuiz.modele.Quiz;
+import com.quizapi.ApiQuiz.repository.*;
+import com.quizapi.ApiQuiz.service.MainQuizService;
 import com.quizapi.ApiQuiz.service.QuizService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
@@ -17,15 +20,16 @@ import java.util.Map;
 @AllArgsConstructor
 public class QuizController {
     private final QuizService quizService;
+    private final QuizRepository quizRepository;
+    private final DomaineRepository domaineRepository;
+    private final MainQuizService mainQuizService;
+    private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final ChoiRepository choiRepository;
 
     @PostMapping("/create")
-    public Quiz create(@RequestBody Quiz quiz) {
-        return quizService.creer(quiz);
-    }
-
-    @GetMapping("/liste")
-    public List<Quiz> read() {
-        return quizService.lire();
+    public ResponseEntity<String> create(@RequestBody MainQuiz mainQuiz) {
+        return mainQuizService.forQuiz(mainQuiz,domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
     }
 
     @PutMapping("/update/{idQz}")
@@ -39,7 +43,7 @@ public class QuizController {
         return quizService.supprimer(idQz);
     }
 
-    @GetMapping("/rechercher")
+    @GetMapping("/search")
     @Operation(summary = "Recherche de quiz", description = "Cette méthode permet de rechercher des quiz selon le domaine de connaissance")
     public ResponseEntity<List<Map<String, Object>>> searching(@RequestParam(value = "domain") String domain) {
         List<Quiz> quizList = quizService.search(domain);
