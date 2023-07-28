@@ -1,10 +1,8 @@
 package com.quizapi.ApiQuiz.modele;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,15 +18,16 @@ public class Quiz {
 @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 @Column(length = 50)
+@NotBlank
     private String nom;
 
 @ManyToOne
     private Domaine domaine;
 
-@OneToMany (mappedBy = "quiz")
+@OneToMany (mappedBy = "quiz",orphanRemoval = true)
     private List<Question> questions;
 
-@OneToMany (mappedBy = "quiz")
+@OneToMany (mappedBy = "quiz",orphanRemoval = true)
 private List<Score> scores;
 
 @ManyToOne

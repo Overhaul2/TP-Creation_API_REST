@@ -1,6 +1,7 @@
 package com.quizapi.ApiQuiz.modele;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +20,13 @@ public class Question {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String content;
+    @NotBlank
     private Long point;
     @ManyToOne
     private Quiz quiz;
-    @OneToMany (mappedBy = "question")
+    @OneToMany (mappedBy = "question",orphanRemoval = true)
     private List<Choix> choixes;
 
 }

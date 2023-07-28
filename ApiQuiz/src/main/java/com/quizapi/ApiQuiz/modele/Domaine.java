@@ -1,5 +1,6 @@
 package com.quizapi.ApiQuiz.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import lombok.*;
 public class Domaine {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     @NonNull
     private String nom;

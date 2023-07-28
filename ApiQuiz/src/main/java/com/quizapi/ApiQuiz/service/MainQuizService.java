@@ -66,7 +66,7 @@ public ResponseEntity<String> forQuiz(MainQuiz mainQuiz, DomaineRepository domai
                    //definissons les choix pour la question
                    if (!question.getChoix().isEmpty()){
 
-                       for (int i = 0;i < 4; i++){
+                       for (int i = 1;i < 5; i++){
                            if (question.getChoix().containsKey(i)){
                                Choix choix = new Choix();
                                choix.setContenu( question.getChoix().get(i) );

@@ -38,9 +38,9 @@ public class QuizServiceImp implements QuizService{
     */}
 
     @Override
-    public String supprimer(Long idQz) {
-        quizRepository.deleteById(idQz);
-        return null;
+    public String supprimer(Long id) {
+        quizRepository.deleteById(id);
+        return "Quiz supprime avec succes";
     }
 
     @Override
@@ -50,4 +50,9 @@ public class QuizServiceImp implements QuizService{
 public List<Quiz> search(String domain){
        return quizRepository.findByDomaine_Nom(domain);
 }
+
+    @Override
+    public List<Quiz> myquiz() {
+        return quizRepository.findQuizByUser_Email(UserApp.getEmail());
+    }
 }

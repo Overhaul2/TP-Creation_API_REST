@@ -3,6 +3,7 @@ package com.quizapi.ApiQuiz.modele;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.quizapi.ApiQuiz.service.Validator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -111,5 +112,13 @@ public class User implements UserDetails {
         return true;
     }
 
+    public void setEmail(String email) {
+        if (Validator.Email(email)){
+        this.email = email;
+        }else {
+            this.email=null;
+        }
+
+    }
 }
 

@@ -56,12 +56,14 @@ public class JwtService {
     }
 
     private Key getSigninKey() {
-        byte[] mykey = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] mykey = Decoders.BASE64URL.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(mykey);
     }
     public Boolean IsTokenValid(String jeton, UserDetails userDetails){
         final String username=extraireEmail(jeton);
-        return (username.equals(userDetails.getUsername())) && !IsTokenExpired(jeton) ;
+        //J'enleve la verification des jetons perimee c'est a dire une jeton ne peut pas expirer ou du moins
+        //meme si c'est perimee on prend en compte
+        return (username.equals(userDetails.getUsername())) /*&& !IsTokenExpired(jeton)*/ ;
     }
 
     private boolean IsTokenExpired(String jeton) {
