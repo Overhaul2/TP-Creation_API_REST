@@ -1,11 +1,12 @@
 package com.quizapi.ApiQuiz.service;
 
 import com.quizapi.ApiQuiz.modele.Participation;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("participationService")
 public class ParticipationRepository {
     private final com.quizapi.ApiQuiz.repository.ParticipationRepository participationRepository;
 
