@@ -34,6 +34,10 @@ public class QuizController {
     public ResponseEntity<String> create(@RequestBody MainQuiz mainQuiz) {
         return mainQuizService.forQuiz(mainQuiz,domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
     }
+    @GetMapping("/read")
+    public Object read(@RequestParam(value = "id") Long id ){
+        return mainQuizService.read(id,domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
+    }
     @GetMapping("/myquiz")
     public ResponseEntity<List<Map<String, Object>>> liste(){
         List<Quiz> quizList = quizService.myquiz();
@@ -48,9 +52,9 @@ public class QuizController {
 //voyons si tout a change
         return ResponseEntity.ok(quizInfoList);
     }
-    @PutMapping("/update/{idQz}")
-    public Quiz update(@PathVariable Long idQz, @RequestBody Quiz quiz) {
-        return quizService.modifier(idQz, quiz);
+    @PutMapping("/update")
+    public Object update(@RequestParam(value = "id") Long id, @RequestBody MainQuiz mainQuiz) {
+        return mainQuizService.update(id, mainQuiz, domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
     }
 
     @DeleteMapping("/delete")

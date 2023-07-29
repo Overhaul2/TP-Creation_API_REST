@@ -7,7 +7,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "domaine")
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Setter
 @Getter

@@ -41,7 +41,7 @@ public class JwtService {
                     .setClaims(extraclaims)
                     .setSubject(userDetails.getUsername())
                     .setIssuedAt(new Date(System.currentTimeMillis()))
-                    .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60*24))
+                    .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60*24*360))
                     .signWith(getSigninKey(), SignatureAlgorithm.HS256)
                     .compact();
     }
@@ -63,7 +63,7 @@ public class JwtService {
         final String username=extraireEmail(jeton);
         //J'enleve la verification des jetons perimee c'est a dire une jeton ne peut pas expirer ou du moins
         //meme si c'est perimee on prend en compte
-        return (username.equals(userDetails.getUsername())) /*&& !IsTokenExpired(jeton)*/ ;
+        return (username.equals(userDetails.getUsername())) && !IsTokenExpired(jeton) ;
     }
 
     private boolean IsTokenExpired(String jeton) {
