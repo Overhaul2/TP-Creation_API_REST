@@ -29,6 +29,7 @@ public class QuizController {
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
     private final ChoiRepository choiRepository;
+    private final ParticipationRepository participationRepository;
 
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody MainQuiz mainQuiz) {
@@ -85,6 +86,15 @@ public class QuizController {
         }
 //voyons si tout a change
         return ResponseEntity.ok(quizInfoList);
+    }
+    @GetMapping("/play")
+    public Object play(@RequestParam(value = "id") Long id){
+
+        return mainQuizService.read_without_response(id,domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
+    }
+    @PostMapping("/answer")
+    public Object answer(@RequestBody MainQuiz mainQuiz,@RequestParam(value = "id") Long id){
+        return mainQuizService.quiz_answer(id, mainQuiz, domaineRepository,quizRepository,userRepository,questionRepository,choiRepository,participationRepository);
     }
 
 }

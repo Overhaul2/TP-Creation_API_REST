@@ -48,16 +48,20 @@ public class User implements UserDetails {
     @Getter
     private String pseudo;
 
+    @OneToMany(mappedBy = "user",orphanRemoval = true)
+    @JsonIgnore
+    private List<Participation> participationList;
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Quiz> quizzes;
-    @ManyToMany
+    /*/@ManyToMany
     @JsonIgnore
     @JoinTable(
             name = "participation",
             inverseJoinColumns = @JoinColumn(name = "quiz_id")
     )
-    private List<Quiz> quizList;
+    private List<Quiz> quizList;*/
 
     @Override
     @JsonIgnore

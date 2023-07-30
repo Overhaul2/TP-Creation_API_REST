@@ -32,8 +32,5 @@ public class QuestionApp{
     @JsonProperty("Point")
     private Long Point;
 
-    public void setChoix(int i, String content) {
-        Choix.put(i,content);
-    }
 
 }

@@ -2,6 +2,7 @@ package com.quizapi.ApiQuiz.service;
 
 import com.quizapi.ApiQuiz.modele.*;
 import com.quizapi.ApiQuiz.repository.*;
+import com.quizapi.ApiQuiz.repository.ParticipationRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -258,4 +259,189 @@ public Object update(Long id,MainQuiz mainQuiz,DomaineRepository domaineReposito
                return "Quiz modifier avec succes";
            }
 }
+
+    public Object read_without_response(Long id, DomaineRepository domaineRepository, QuizRepository quizRepository, UserRepository userRepository, QuestionRepository questionRepository, ChoiRepository choiRepository) {
+
+        Quiz quiz = quizRepository.findQuizById(id);
+        //verifions que l'utilisateur est le proprietaire du quiz
+        if (quiz==null){
+            return "Desole nous n'avons pas pu retrouver le quiz demander";
+        }
+        else {
+            MainQuiz mainQuiz = new MainQuiz();
+            //definissons le champ quiz name et consort
+
+            if (userRepository.findUserByEmail(UserApp.getEmail())==quiz.getUser()){
+                return "Desole vous n'etes pas autorise a effectuer cette action";
+            }
+            else{
+                //le nom
+                mainQuiz.setName(quiz.getNom());
+
+                //le domaine
+                Domaine domaine = quiz.getDomaine();
+                mainQuiz.setDomaine(domaine.getNom());
+
+                //les question
+                //connaitre d'abord le nombre de question d'une quiz
+                List<Question> questions = questionRepository.findAllByQuiz_Id(id);
+                //questions contient toutes les questions de la quiz
+                List<QuestionApp> questionAppList = new ArrayList<>();
+                for (Question question: questions) {
+                    QuestionApp questionApp = new QuestionApp();
+
+                    questionApp.setQuestion(question.getContent());
+                    //essayons de recuperer les choix pour chaque question
+                    int i =0;
+                    questionApp.setPoint(question.getPoint());
+                    questionApp.setReponse(0);
+                    Map<Integer, String> choix1 = new HashMap<>();
+                    List<Choix> choixList = choiRepository.findAllByQuestion_Id(question.getId());
+                    for (Choix choix : choixList){
+                        i++;
+                        choix1.put(i, choix.getContenu());
+                        //if (choix.getEtat()==true){
+                            questionApp.setReponse(0);
+                        //}
+                        questionApp.setChoix(choix1);
+
+                    }
+
+                    questionAppList.add(questionApp);
+                }
+                mainQuiz.setQuestions(questionAppList);
+
+                return mainQuiz;
+                //fin
+            }
+        }
+
+    }
+
+    public Object quiz_answer(Long id, MainQuiz mainQuiz1, DomaineRepository domaineRepository, QuizRepository quizRepository, UserRepository userRepository, QuestionRepository questionRepository, ChoiRepository choiRepository, ParticipationRepository participationRepository) {
+
+        Quiz quiz = quizRepository.findQuizById(id);
+        //verifions que l'utilisateur est le proprietaire du quiz
+        if (quiz==null){
+            return "Desole nous n'avons pas pu retrouver le quiz demander";
+        }
+        else {
+            MainQuiz mainQuiz2 = new MainQuiz();
+            //definissons le champ quiz name et consort
+
+            if (userRepository.findUserByEmail(UserApp.getEmail())==quiz.getUser()){
+                return "Desole vous n'etes pas autorise a effectuer cette action";
+            }
+            else{
+                /*/le nom
+                mainQuiz.setName(quiz.getNom());
+
+                //le domaine
+                Domaine domaine = quiz.getDomaine();
+                mainQuiz.setDomaine(domaine.getNom());
+
+                //les question
+                //connaitre d'abord le nombre de question d'une quiz
+
+                //questions contient toutes les questions de la quiz*/
+                List<Question> questions1 = questionRepository.findAllByQuiz_Id(id);
+                List<QuestionApp> questionAppList1 = mainQuiz1.getQuestions();
+                int i =0;
+                Long score = 0L;
+                for (Question question: questions1) {
+                    /*QuestionApp questionApp = new QuestionApp();
+                    questionApp.setQuestion(question.getContent());
+                    //essayons de recuperer les choix pour chaque question
+
+                    questionApp.setPoint(question.getPoint());
+                    questionApp.setReponse(0);*/
+                    Map<Integer, String> choix1 = questionAppList1.get(i).getChoix() ;
+                    List<Choix> choixList1 = choiRepository.findAllByQuestion_Id(question.getId());
+                    int y = 0;
+                    for (Choix choix : choixList1){
+                        y++;
+                        //choix1.put(i, choix.getContenu());
+                        if (choix.getEtat()==true){
+                        //questionApp.setReponse(i);
+                        if (questionAppList1.get(i).getReponse()==y){
+                            score=score+question.getPoint();
+                        }
+                        }
+                        //questionApp.setChoix(choix1);
+
+                    }
+                    i++;
+                    //questionAppList.add(questionApp);
+                }
+                //mainQuiz.setQuestions(questionAppList);
+                QuizAnswer answer = new QuizAnswer();
+                answer.setYour_answer("Votre Score est "+score+" vous pouvez verifier les reponse ci-dessous");
+
+
+
+
+                //La partie affichage du reponse en copiant le code de la fonction read
+
+
+                MainQuiz mainQuiz = new MainQuiz();
+                //le nom
+                mainQuiz.setName(quiz.getNom());
+
+                //le domaine
+                Domaine domaine = quiz.getDomaine();
+                mainQuiz.setDomaine(domaine.getNom());
+
+                //les question
+                //connaitre d'abord le nombre de question d'une quiz
+                List<Question> questions = questionRepository.findAllByQuiz_Id(id);
+                //questions contient toutes les questions de la quiz
+                List<QuestionApp> questionAppList = new ArrayList<>();
+                for (Question question: questions) {
+                    QuestionApp questionApp = new QuestionApp();
+
+                    questionApp.setQuestion(question.getContent());
+                    //essayons de recuperer les choix pour chaque question
+                    int w =0;
+                    questionApp.setPoint(question.getPoint());
+                    questionApp.setReponse(0);
+                    Map<Integer, String> choix1 = new HashMap<>();
+                    List<Choix> choixList = choiRepository.findAllByQuestion_Id(question.getId());
+                    for (Choix choix : choixList){
+                        w++;
+                        choix1.put(w, choix.getContenu());
+                        if (choix.getEtat()==true){
+                            questionApp.setReponse(w);
+                        }
+                        questionApp.setChoix(choix1);
+
+                    }
+
+                    questionAppList.add(questionApp);
+                }
+                mainQuiz.setQuestions(questionAppList);
+                answer.setMainQuiz(mainQuiz);
+
+                //enregistrement du score ou remplacement du score si celle la est plus eleve
+                User user1 = userRepository.findUserByEmail(UserApp.getEmail());
+
+                Participation participation = participationRepository.findParticipationByUserAndAndQuiz(user1,quiz);
+                if (participation==null){
+                    Participation participation1 = new Participation();
+                    participation1.setQuiz(quiz);
+                    participation1.setUser(user1);
+                    participation1.setScore(score);
+                    participationRepository.save(participation1);
+
+                } else if (participation.getScore()<score) {
+                    participation.setScore(score);
+                    answer.setYour_answer("Bravo vous avez un nouveau record avec un score de  "+score+" vous pouvez verifier les reponse ci-dessous");
+                    participationRepository.save(participation);
+                }
+                return answer;
+                //fin
+            }
+            }
+        }
+
+
 }
