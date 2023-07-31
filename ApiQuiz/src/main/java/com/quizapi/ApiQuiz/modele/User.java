@@ -1,5 +1,6 @@
 package com.quizapi.ApiQuiz.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -13,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -47,8 +49,8 @@ public class User implements UserDetails {
     @Getter
     private String pseudo;
 
-    @OneToMany(mappedBy = "user")
-    private List<Quiz> quizzes;
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<Quiz> quizzes= new ArrayList<>();
     @ManyToMany
     @JoinTable(
             name = "participation",
@@ -77,6 +79,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnoreProperties()
     public String getUsername() {
         return email;
     }

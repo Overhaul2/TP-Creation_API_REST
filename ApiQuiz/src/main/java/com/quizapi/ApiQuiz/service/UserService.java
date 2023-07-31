@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 
 import java.util.List;
@@ -55,8 +56,9 @@ public class UserService {
     public Optional<User> finduser(){
         return UserRepository.findByEmail(UserApp.getEmail());
     }
+    @Transactional
     public String deletesuser(){
-        UserRepository.deleteUserByEmail(UserApp.getEmail());
+        UserRepository.deleteByEmail(UserApp.getEmail());
         return "Compte supprime avec succes";
     }
     public User modify(User user1){

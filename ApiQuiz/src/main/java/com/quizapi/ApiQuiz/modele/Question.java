@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Question {
     private String content;
     @ManyToOne
     private Quiz quiz;
-    @OneToMany (mappedBy = "question")
-    private List<Choix> choixes;
+    @OneToMany (mappedBy = "question", orphanRemoval = true)
+    private List<Choix> choixes = new ArrayList<>();
 
 }
