@@ -20,6 +20,6 @@ public class OpenApiConfig {
                                 " Les résultats des quiz seront enregistrés et les utilisateurs pourront consulter leurs scores.\n" +
                                 "Classement : les utilisateurs pourront comparer leurs scores avec ceux des autres utilisateurs.\n" +
                                 "L'API sera basée sur une architecture client-serveur, où les utilisateurs pourront accéder à l'application via une interface utilisateur conviviale sur le navigateur. L'application sera développée en Java Spring Boot, un framework Java open source qui facilite le développement d'applications web. Les données des utilisateurs, des quiz et des résultats seront stockées dans une base de données relationnelle telle que MySQL.")
-                        .version("1.0"));
+                        .version("2.0"));
     }
 }

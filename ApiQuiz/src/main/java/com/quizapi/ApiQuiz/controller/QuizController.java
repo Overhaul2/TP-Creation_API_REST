@@ -1,14 +1,12 @@
 package com.quizapi.ApiQuiz.controller;
 
-import com.quizapi.ApiQuiz.modele.Quiz;
+import com.quizapi.ApiQuiz.modele.*;
 import com.quizapi.ApiQuiz.service.QuizService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import com.quizapi.ApiQuiz.modele.MainQuiz;
 import com.quizapi.ApiQuiz.modele.Quiz;
-import com.quizapi.ApiQuiz.modele.User;
 import com.quizapi.ApiQuiz.repository.*;
 import com.quizapi.ApiQuiz.service.MainQuizService;
 import com.quizapi.ApiQuiz.service.QuizService;
@@ -102,6 +100,21 @@ public class QuizController {
     @PostMapping("/answer")
     public Object answer(@RequestBody MainQuiz mainQuiz,@RequestParam(value = "id") Long id){
         return mainQuizService.quiz_answer(id, mainQuiz, domaineRepository,quizRepository,userRepository,questionRepository,choiRepository,participationRepository);
+    }
+    @GetMapping("")
+    public Object allquiz(){
+        List<Quiz> quizList = quizRepository.findAll();
+        List<allQuiz> quizInfoList = new ArrayList<>();
+
+        for (Quiz quiz : quizList) {
+            allQuiz allQuiz = new allQuiz();
+            allQuiz.setId(quiz.getId());
+            allQuiz.setNom(quiz.getNom());
+            allQuiz.setDomaine(quiz.getDomaine().getNom());
+            //quizInfo.put();
+            quizInfoList.add(allQuiz);
+        }
+        return quizInfoList;
     }
 
 }

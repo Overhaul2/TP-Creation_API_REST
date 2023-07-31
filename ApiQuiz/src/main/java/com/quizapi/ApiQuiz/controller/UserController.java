@@ -4,6 +4,8 @@ import com.quizapi.ApiQuiz.modele.Participation;
 import com.quizapi.ApiQuiz.modele.User;
 import com.quizapi.ApiQuiz.service.UserService;
 import com.quizapi.ApiQuiz.service.User_Update;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
@@ -37,6 +39,8 @@ public class UserController {
     }
 
     @GetMapping("/History/{UserId}")
+    @Operation(summary = "afficher l'historique", description = "azertyui")
+
     public ResponseEntity<List<Participation>> getUserParticipation(@PathVariable("UserId") Long UserId){
         List<Participation> ParticipationList= getUserParticipationFromDataSource(UserId);
         return ResponseEntity.ok(ParticipationList);
