@@ -1,12 +1,21 @@
 package com.quizapi.ApiQuiz.controller;
 
 import com.quizapi.ApiQuiz.modele.Quiz;
-import com.quizapi.ApiQuiz.service.ParticipationRepository;
 import com.quizapi.ApiQuiz.service.QuizService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import com.quizapi.ApiQuiz.modele.MainQuiz;
+import com.quizapi.ApiQuiz.modele.Quiz;
+import com.quizapi.ApiQuiz.modele.User;
+import com.quizapi.ApiQuiz.repository.*;
+import com.quizapi.ApiQuiz.service.MainQuizService;
+import com.quizapi.ApiQuiz.service.QuizService;
+import com.quizapi.ApiQuiz.service.UserApp;
+import com.quizapi.ApiQuiz.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,36 +25,60 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("quiz")
+@RequestMapping("/quiz")
 @AllArgsConstructor
 public class QuizController {
-
-
-    private QuizService quizService;
-    private ParticipationRepository quizRepository;
+    private final QuizService quizService;
+    private final QuizRepository quizRepository;
+    private final DomaineRepository domaineRepository;
+    private final MainQuizService mainQuizService;
+    private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final ChoiRepository choiRepository;
+    private final ParticipationRepository participationRepository;
 
     @PostMapping("/create")
-    public Quiz create(@RequestBody Quiz quiz) {
-        return quizService.creer(quiz);
+    public ResponseEntity<String> create(@RequestBody MainQuiz mainQuiz) {
+        return mainQuizService.forQuiz(mainQuiz,domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
+    }
+    @GetMapping("/read")
+    public Object read(@RequestParam(value = "id") Long id ){
+        return mainQuizService.read(id,domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
+    }
+    @GetMapping("/myquiz")
+    public ResponseEntity<List<Map<String, Object>>> liste(){
+        List<Quiz> quizList = quizService.myquiz();
+        List<Map<String, Object>> quizInfoList = new ArrayList<>();
+
+        for (Quiz quiz : quizList) {
+            Map<String, Object> quizInfo = new HashMap<>();
+            quizInfo.put("id", quiz.getId());
+            quizInfo.put("nom", quiz.getNom());
+            quizInfoList.add(quizInfo);
+        }
+//voyons si tout a change
+        return ResponseEntity.ok(quizInfoList);
+    }
+    @PutMapping("/update")
+    public Object update(@RequestParam(value = "id") Long id, @RequestBody MainQuiz mainQuiz) {
+        return mainQuizService.update(id, mainQuiz, domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
     }
 
-    @GetMapping("/liste")
-    public List<Quiz> read() {
-        return quizService.lire();
-    }
-
-    @PutMapping("/update/{idQz}")
-    public Quiz update(@PathVariable Long idQz, @RequestBody Quiz quiz) {
-        return quizService.modifier(idQz, quiz);
-    }
-
-    @DeleteMapping("/delete/{idQz}")
+    @DeleteMapping("/delete")
     @Operation(summary = "Supprimer quiz ", description = "cette methode permet de Supprimer quiz")
-    public String delete(@PathVariable Long idQz) {
-        return quizService.supprimer(idQz);
+    public String delete(@RequestParam(value = "id") Long id) {
+        User user1 = userRepository.findUserByEmail(UserApp.getEmail());
+        User user2 = quizRepository.findUserById(id);
+        if (user1.getId()==user2.getId()){
+            quizService.supprimer(id);
+            return "Votre quiz a ete supprime avec Success";
+        }
+        else {
+            return "Vous n'etes pas autorise a supprime ce quiz";
+        }
     }
 
-    @GetMapping("/rechercher")
+    @GetMapping("/search")
     @Operation(summary = "Recherche de quiz", description = "Cette méthode permet de rechercher des quiz selon le domaine de connaissance")
     public ResponseEntity<List<Map<String, Object>>> searching(@RequestParam(value = "domain") String domain) {
         List<Quiz> quizList = quizService.search(domain);
@@ -58,17 +91,17 @@ public class QuizController {
             quizInfoList.add(quizInfo);
         }
 
+//voyons si tout a change
         return ResponseEntity.ok(quizInfoList);
     }
-    public final ParticipationRepository participationRepository;
-    @Autowired
-    public  QuizController(ParticipationRepository participationRepository){
-        this.participationRepository=participationRepository;
+    @GetMapping("/play")
+    public Object play(@RequestParam(value = "id") Long id){
+
+        return mainQuizService.read_without_response(id,domaineRepository,quizRepository,userRepository,questionRepository,choiRepository);
     }
-    @GetMapping("")
-    public  ResponseEntity<List<Quiz>> getAllquiz(){
-        List<Quiz> quizzes =quizRepository.getAllQuiz();
-        return new ResponseEntity<>(quizzes, HttpStatus.OK);
+    @PostMapping("/answer")
+    public Object answer(@RequestBody MainQuiz mainQuiz,@RequestParam(value = "id") Long id){
+        return mainQuizService.quiz_answer(id, mainQuiz, domaineRepository,quizRepository,userRepository,questionRepository,choiRepository,participationRepository);
     }
 
 }

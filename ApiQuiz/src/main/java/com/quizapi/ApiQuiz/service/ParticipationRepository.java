@@ -16,9 +16,9 @@ public class ParticipationRepository {
         this.participationRepository = participationRepository;
     }
 
-    public List<Participation> getUserParticipationByUserId(Long userId) {
-        return participationRepository.getParticipationsByUserId(Math.toIntExact(userId));
-    }
+   /* public List<Participation> getUserParticipationByUserId(Long userId) {
+        return participationRepository.getParticipationsByUserId(Math.toIntExact(userId));*/
+
 
     @Autowired
     public ParticipationRepository(QuizRepository quizRepository){
