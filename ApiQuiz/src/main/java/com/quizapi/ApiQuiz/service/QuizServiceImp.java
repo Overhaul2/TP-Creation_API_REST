@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,21 +26,21 @@ public class QuizServiceImp implements QuizService{
 
     @Override
     public Quiz modifier(Long idQz, Quiz quiz) {
-        return quizRepository.findById(idQz)
+        return null;/* quizRepository.findById(idQz)
                 .map(p-> {
                     p.setNom(quiz.getNom()) ;
                     p.setDomaine(quiz.getDomaine());
                     p.setQuestions(quiz.getQuestions());
                     p.setScores(quiz.getScores());
-                    p.setUser(quiz.getUser());
+                    p.setUser(Optional.ofNullable(quiz.getUser()));
                     return quizRepository.save(p);
                 }).orElseThrow(() ->new RuntimeException("Quiz non trouvé!"));
-    }
+    */}
 
     @Override
-    public String supprimer(Long idQz) {
-        quizRepository.deleteById(idQz);
-        return null;
+    public String supprimer(Long id) {
+        quizRepository.deleteById(id);
+        return "Quiz supprime avec succes";
     }
 
     @Override
@@ -49,4 +50,9 @@ public class QuizServiceImp implements QuizService{
 public List<Quiz> search(String domain){
        return quizRepository.findByDomaine_Nom(domain);
 }
+
+    @Override
+    public List<Quiz> myquiz() {
+        return quizRepository.findQuizByUser_Email(UserApp.getEmail());
+    }
 }

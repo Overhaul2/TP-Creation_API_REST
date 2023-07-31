@@ -15,5 +15,6 @@ public interface QuizService {
 
     List<Quiz> rechercherQuizByNom(String nom);
     public List<Quiz> search(String domain);
+    List<Quiz> myquiz();
 
 }
