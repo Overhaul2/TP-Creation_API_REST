@@ -63,6 +63,9 @@ public class QuizController {
     public String delete(@RequestParam(value = "id") Long id) {
         User user1 = userRepository.findUserByEmail(UserApp.getEmail());
         User user2 = quizRepository.findUserById(id);
+        if (user2==null || user1 == null){
+            return "Cet quiz ou cette token est invalide";
+        }
         if (user1.getId()==user2.getId()){
             quizService.supprimer(id);
             return "Votre quiz a ete supprime avec Success";
