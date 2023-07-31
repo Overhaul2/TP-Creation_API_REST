@@ -8,6 +8,7 @@ import java.util.List;
 @Component
 public class ParticipationRepository {
     public List<Participation> getParticipationsByUserId(Integer userId) {
+
         return null;
     }
 }

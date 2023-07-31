@@ -1,9 +1,12 @@
 package com.quizapi.ApiQuiz.controller;
 
 import com.quizapi.ApiQuiz.modele.Quiz;
+import com.quizapi.ApiQuiz.service.ParticipationRepository;
 import com.quizapi.ApiQuiz.service.QuizService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +19,9 @@ import java.util.Map;
 @RequestMapping("quiz")
 @AllArgsConstructor
 public class QuizController {
-    private final QuizService quizService;
+
+
+    private QuizService quizService;
 
     @PostMapping("/create")
     public Quiz create(@RequestBody Quiz quiz) {
@@ -53,6 +58,16 @@ public class QuizController {
         }
 
         return ResponseEntity.ok(quizInfoList);
+    }
+    public final ParticipationRepository participationRepository;
+    @Autowired
+    public  QuizController(ParticipationRepository participationRepository){
+        this.participationRepository=participationRepository;
+    }
+    @GetMapping
+    public  ResponseEntity<List<Quiz>> getAllquiz(){
+        List<Quiz> quizzes =participationRepository.getAllQuiz();
+        return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
 }

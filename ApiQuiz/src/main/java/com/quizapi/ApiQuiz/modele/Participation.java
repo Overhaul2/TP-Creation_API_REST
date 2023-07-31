@@ -13,6 +13,5 @@ public class Participation {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id ;
     private Integer score;
-    private String quizNom;
 
 }
