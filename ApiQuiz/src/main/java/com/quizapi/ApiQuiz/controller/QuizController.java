@@ -22,6 +22,7 @@ public class QuizController {
 
 
     private QuizService quizService;
+    private ParticipationRepository quizRepository;
 
     @PostMapping("/create")
     public Quiz create(@RequestBody Quiz quiz) {
@@ -64,9 +65,9 @@ public class QuizController {
     public  QuizController(ParticipationRepository participationRepository){
         this.participationRepository=participationRepository;
     }
-    @GetMapping
+    @GetMapping("")
     public  ResponseEntity<List<Quiz>> getAllquiz(){
-        List<Quiz> quizzes =participationRepository.getAllQuiz();
+        List<Quiz> quizzes =quizRepository.getAllQuiz();
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
